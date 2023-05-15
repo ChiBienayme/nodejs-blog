@@ -23,11 +23,12 @@ app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources/views"));
 
 //route
-app.get("/", (req, res) => {
-    res.render("home");
+app.get("/", (request, response) => {
+    response.render("home");
 });
-app.get("/news", (req, res) => {
-    res.render("news");
+
+app.get("/news", (request, response) => {
+    response.render("news");
 });
 
 // 127.0.0.1 - localhost:3000
