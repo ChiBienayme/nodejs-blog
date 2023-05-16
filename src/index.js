@@ -9,8 +9,18 @@ const port = 3000;
 // app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.static(__dirname + "/public"));
 
+//middleware
+//send from XMHttpRequest, fetch, axios
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
+//send to js to server
+app.use(express.json());
+
 //HTTP logger
-// app.use(morgan("combined"));
+app.use(morgan("combined"));
 
 //Template engine
 app.engine(
@@ -32,8 +42,14 @@ app.get("/news", (req, res) => {
 });
 
 app.get("/search", (req, res) => {
-    console.log(req.query.q);
+    // console.log(req.query.q);
     res.render("search");
+});
+
+app.post("/search", (req, res) => {
+    console.log(req.body);
+
+    res.send("");
 });
 
 // 127.0.0.1 - localhost:3000
