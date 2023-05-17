@@ -6,6 +6,8 @@ const path = require("path");
 const app = express();
 const port = 3000;
 
+const route = require("./routes");
+
 // app.use(express.static(path.join(__dirname, "/public")));
 app.use(express.static(__dirname + "/public"));
 
@@ -32,25 +34,9 @@ app.engine(
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources/views"));
 
-//route
-app.get("/", (req, res) => {
-    res.render("home");
-});
+//route init
+route(app);
 
-app.get("/news", (req, res) => {
-    res.render("news");
-});
-
-app.get("/search", (req, res) => {
-    // console.log(req.query.q);
-    res.render("search");
-});
-
-app.post("/search", (req, res) => {
-    console.log(req.body);
-
-    res.send("");
-});
 
 // 127.0.0.1 - localhost:3000
 app.listen(port, () => {
