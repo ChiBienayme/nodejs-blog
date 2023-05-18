@@ -1,7 +1,11 @@
 @import "variables";
 
-.title {
-    color: $red-color;
+.user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-right: 4px;
 }
 
 
