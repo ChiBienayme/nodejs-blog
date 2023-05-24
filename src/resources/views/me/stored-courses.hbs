@@ -16,7 +16,7 @@
                 <option value="delete">Delete</option>
             </select>
 
-            <button class="btn btn-primary btn-sm mr-2 check-all-submit-btn disabled">Apply</button>
+            <button class="btn btn-primary btn-sm mr-2 check-all-submit-btn" disabled>Apply</button>
         </div>
     </div>
 
@@ -110,17 +110,18 @@
         var deleteForm = document.forms['delete-course-form'];
         var containerForm = document.forms['container-form'];
         var btnDeleteCourse = document.getElementById('btn-delete-course');
+
         var checkboxAll = $('#checkbox-all');
         var courseItemCheckbox = $('input[name="courseIds[]"]');
         var checkAllSubmitBtn = $('check-all-submit-btn');
-
+        
         // When dialog confirm clicked 
         $('#delete-course-modal').on('show.bs.modal',
         function (event) { 
             var button = $(event.relatedTarget); 
-            courseId =button.data('id') ; 
+            courseId = button.data('id') ; 
         }) 
-
+        
         // When delete course btn clicked - javascript
         btnDeleteCourse.onclick = function () { 
             deleteForm.action = '/courses/' + courseId + '?_method=DELETE'; 
@@ -134,6 +135,7 @@
             renderCheckAllSubmitBtn();
         });
 
+
         //  Course item checkbox clicked
         courseItemCheckbox.change(function () {
             var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length;
@@ -141,27 +143,19 @@
             renderCheckAllSubmitBtn();
         })
 
-        //Check all submit button clicked
-        checkAllSubmitBtn.on('submit', function(e) {
-            var isSubmittable = !$(this).hasClass('disabled');
-            if (!isSubmittable) {
-                e.preventDefault;
-            }
-        })
-
 
         // Re-render check all submit button
         function renderCheckAllSubmitBtn() {
             var checkedCount = $('input[name="courseIds[]"]:checked').length;
             if(checkedCount > 0) {
-                checkAllSubmitBtn.removeClass('disabled');
+                checkAllSubmitBtn.removeAttr('disabled');
                 console.log('can apply')
             } else {
-                checkAllSubmitBtn.addClass('disabled');
+                checkAllSubmitBtn.prop('disabled', true);
                 console.log('can not apply')
-
             }
         }
+
 
     });
 
