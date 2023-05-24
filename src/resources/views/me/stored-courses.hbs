@@ -19,14 +19,25 @@
             <button class="btn btn-primary btn-sm mr-2 check-all-submit-btn" disabled>Apply</button>
         </div>
     </div>
-
+  
     <table class="table mt-4">
         <thead>
             <tr>
                 <th scope="col" colspan="2">#</th>
-                <th scope="col">Course's name</th>
-                <th scope="col">Level</th>
-                <th scope="col" colspan="2">Deleted at</th>
+                <th scope="col">
+                    Course's name
+                    {{{sortable 'name' _sort }}}
+                    
+                </th>
+                <th scope="col">
+                    Level
+                    {{{sortable 'level' _sort }}}
+
+                </th>
+                <th scope="col" colspan="2">
+                    Created at
+                    {{{sortable 'createdAt' _sort }}}
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -40,7 +51,7 @@
                     <th scope="row">{{sum @index 1}}</th>
                     <td>{{this.name}}</td>
                     <td>{{this.level}}</td>
-                    <td>{{this.deletedAt}}</td>
+                    <td>{{this.createdAt}}</td>
                     <td>
                         <a
                             href="/courses/{{this._id}}/edit"
