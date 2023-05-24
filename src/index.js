@@ -1,6 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
-const methodOverride = require('method-override')
+const methodOverride = require("method-override");
 const handlebars = require("express-handlebars").engine;
 const path = require("path");
 
@@ -27,7 +27,26 @@ app.use(
 app.use(express.json());
 
 // override with POST having ?_method=DELETE
-app.use(methodOverride('_method'))
+app.use(methodOverride("_method"));
+
+//middleware
+app.use(security);
+function security(req, res, next) {
+    if (["normalTicket", "VIPTicket"].includes(req.query.ticket)) {
+        req.face = "strikethrough";
+        return next();
+    }
+    res.status(403).json({
+        message: "Access denied",
+    });
+}
+
+app.get("/middleware", function (req, res, next) {
+    res.json({
+        message: "Successfully",
+        face: req.face,
+    });
+});
 
 //HTTP logger
 app.use(morgan("combined"));
@@ -39,7 +58,7 @@ app.engine(
         extname: ".hbs",
         helpers: {
             sum: (a, b) => a + b,
-        }
+        },
     })
 );
 app.set("view engine", "hbs");

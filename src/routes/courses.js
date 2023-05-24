@@ -3,7 +3,12 @@ const router = express.Router();
 
 const courseController = require("../app/controllers/CourseController");
 
-router.get("/create", courseController.create);
+router.get("/create", function(req, res, next){
+    if( req.query.ticket === 'VIP') return next();
+    res.status(403).json({
+        message: "Access denied"
+    })
+}, courseController.create);
 router.post("/store", courseController.store);
 router.post("/handle-form-actions", courseController.handleFormActions);
 router.get("/:id/edit", courseController.edit);
