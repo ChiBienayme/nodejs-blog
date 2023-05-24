@@ -8,6 +8,7 @@ module.exports = function SortMiddleware(req, res, next) {
         // res.locals._sort.enabled = true;
         // res.locals._sort.type = res.query.type;
         // res.locals._sort.column = res.query.column;
+        
         Object.assign(res.locals._sort, {
             enabled: true,
             type: req.query.type,
