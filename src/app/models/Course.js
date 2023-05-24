@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 const slug = require("mongoose-slug-updater");
 const mongooseDelete = require("mongoose-delete");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
+
+const Schema = mongoose.Schema;
 
 const Course = new Schema(
     {
@@ -19,8 +21,21 @@ const Course = new Schema(
     }
 );
 
+//Custom query helpers
+Course.query.sortable = function (req) {
+    if (req.query.hasOwnProperty("_sort")) {
+        const isValidtype = ["asc", "desc"].includes(req.query.type);
+        return this.sort({
+            [req.query.column]: isValidtype ? req.query.type : "desc",
+        });
+    }
+    return this;
+};
+
 //Add plugins
 mongoose.plugin(slug);
+
+Course.plugin(AutoIncrement);
 Course.plugin(mongooseDelete, {
     deletedAt: true,
     overrideMethods: "all",

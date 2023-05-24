@@ -23,7 +23,11 @@
     <table class="table mt-4">
         <thead>
             <tr>
-                <th scope="col" colspan="2">#</th>
+                <th scope="col" colspan="2"></th>
+                <th scope="col" colspan="2">
+                    ID
+                    {{{sortable '_id' _sort }}}
+                </th>
                 <th scope="col">
                     Course's name
                     {{{sortable 'name' _sort }}}
@@ -48,7 +52,7 @@
                             <input class="form-check-input" type="checkbox" name="courseIds[]" value="{{this._id}}" >
                         </div>
                     </td>
-                    <th scope="row">{{sum @index 1}}</th>
+                    <th scope="row">{{this._id}}</th>
                     <td>{{this.name}}</td>
                     <td>{{this.level}}</td>
                     <td>{{this.createdAt}}</td>
